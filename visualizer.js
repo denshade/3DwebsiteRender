@@ -15,7 +15,7 @@ function createCharacterTexture(text) {
     var dynamictexture = new THREEx.DynamicTexture(512, 512);
     dynamictexture.context.font = "bolder 90px verdana";
     dynamictexture.texture.needsUpdate = true;
-    var bgcolor = '#ffa500';
+    var bgcolor;
     switch(text)
     {
         case 'DIV':
