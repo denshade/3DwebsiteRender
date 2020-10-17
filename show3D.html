@@ -55,6 +55,10 @@ const example = [{"name":"BODY","x":0,"y":0,"level":0,"width":606,"height":80},
 
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
+
+    var controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls.update();
+
     document.body.appendChild( renderer.domElement );
     for (obj of example)
     {
@@ -67,15 +71,15 @@ const example = [{"name":"BODY","x":0,"y":0,"level":0,"width":606,"height":80},
     var animate = function () {
         requestAnimationFrame( animate );
 
-        if (camera.position.x > 4) {
+        /*if (camera.position.x > 4) {
             camera.position.x = 0;
         }
         if (camera.position.y > 14) {
             camera.position.y = 0;
         }
         camera.position.x += 0.01;
-        camera.position.y += 0.01;
-
+        camera.position.y += 0.01;*/
+        controls.update();
 
         renderer.render( scene, camera );
     };
