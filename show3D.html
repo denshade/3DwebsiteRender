@@ -2,8 +2,13 @@
 <head>
     <title>My first three.js app</title>
     <style>
-        body { margin: 0; }
-        canvas { display: block; }
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -13,63 +18,81 @@
 
 
 <script>
-    function createCharacterTexture( text ) {
+    function createCharacterTexture(text) {
         //return new THREE.MeshNormalMaterial();
         var dynamictexture = new THREEx.DynamicTexture(512, 512);
         dynamictexture.context.font = "bolder 90px verdana";
         dynamictexture.texture.needsUpdate = true;
         dynamictexture.clear('#d33333').drawText(text, undefined, 256, 'green');
-        var material = new THREE.MeshBasicMaterial({color: 0xffffff, map: dynamictexture.texture, opacity:1, transparent: true});
-        return material ;
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            map: dynamictexture.texture,
+            opacity: 1,
+            transparent: true
+        });
+        return material;
     }
 
 
-//    const example = [{"name":"BODY","x":8,"y":21.4375,"level":0,"width":1264,"height":1264},{"name":"H1","x":8,"y":21.4375,"level":1,"width":1264,"height":36.66666793823242}];
-const example = [{"name":"BODY","x":0,"y":0,"level":0,"width":606,"height":80},
-     {"name":"HEADER","x":0,"y":0,"level":1,"width":606,"height":80},
-     {"name":"UL","x":0,"y":18.45833396911621,"level":2,"width":591.3333740234375,"height":43.083335876464844},
-     {"name":"LI","x":14.666666984558105,"y":22.125,"level":3,"width":133.1666717529297,"height":39.41666793823242},
-     {"name":"A","x":14.666666984558105,"y":22.125,"level":4,"width":133.1666717529297,"height":35.75},
-     {"name":"LI","x":162.5,"y":22.125,"level":3,"width":133.16668701171875,"height":35.75},
-     {"name":"A","x":162.5,"y":22.125,"level":4,"width":133.16668701171875,"height":35.75},
-     {"name":"LI","x":310.3333435058594,"y":22.125,"level":3,"width":133.16665649414062,"height":35.75},
-     {"name":"A","x":310.3333435058594,"y":22.125,"level":4,"width":133.16665649414062,"height":35.75},
-     {"name":"LI","x":458.16668701171875,"y":22.125,"level":3,"width":133.16668701171875,"height":35.75},
-     {"name":"A","x":458.16668701171875,"y":22.125,"level":4,"width":133.16668701171875,"height":35.75},
-     {"name":"DIV","x":0,"y":80,"level":1,"width":606,"height":473.3333740234375},
-     {"name":"IFRAME","x":0,"y":80,"level":2,"width":606,"height":473.3333740234375},
-     {"name":"DIV","x":0,"y":80,"level":1,"width":606,"height":0}];
+    //    const exampleElements = [{"name":"BODY","x":8,"y":21.4375,"level":0,"width":1264,"height":1264},{"name":"H1","x":8,"y":21.4375,"level":1,"width":1264,"height":36.66666793823242}];
+    const exampleElements = [{"name": "BODY", "x": 0, "y": 0, "level": 0, "width": 606, "height": 80},
+        {"name": "HEADER", "x": 0, "y": 0, "level": 1, "width": 606, "height": 80},
+        {
+            "name": "UL",
+            "x": 0,
+            "y": 18.45833396911621,
+            "level": 2,
+            "width": 591.3333740234375,
+            "height": 43.083335876464844
+        },
+        {
+            "name": "LI",
+            "x": 14.666666984558105,
+            "y": 22.125,
+            "level": 3,
+            "width": 133.1666717529297,
+            "height": 39.41666793823242
+        },
+        {"name": "A", "x": 14.666666984558105, "y": 22.125, "level": 4, "width": 133.1666717529297, "height": 35.75},
+        {"name": "LI", "x": 162.5, "y": 22.125, "level": 3, "width": 133.16668701171875, "height": 35.75},
+        {"name": "A", "x": 162.5, "y": 22.125, "level": 4, "width": 133.16668701171875, "height": 35.75},
+        {"name": "LI", "x": 310.3333435058594, "y": 22.125, "level": 3, "width": 133.16665649414062, "height": 35.75},
+        {"name": "A", "x": 310.3333435058594, "y": 22.125, "level": 4, "width": 133.16665649414062, "height": 35.75},
+        {"name": "LI", "x": 458.16668701171875, "y": 22.125, "level": 3, "width": 133.16668701171875, "height": 35.75},
+        {"name": "A", "x": 458.16668701171875, "y": 22.125, "level": 4, "width": 133.16668701171875, "height": 35.75},
+        {"name": "DIV", "x": 0, "y": 80, "level": 1, "width": 606, "height": 473.3333740234375},
+        {"name": "IFRAME", "x": 0, "y": 80, "level": 2, "width": 606, "height": 473.3333740234375},
+        {"name": "DIV", "x": 0, "y": 80, "level": 1, "width": 606, "height": 0}];
     const create3DObject = (entityObj) => {
-        var geometry = new THREE.BoxGeometry(entityObj.width/10,0.5,entityObj.height/10);
+        var geometry = new THREE.BoxGeometry(entityObj.width / 10, 0.5, entityObj.height / 10);
         var material = createCharacterTexture(entityObj.name);
 
         var body = new THREE.Mesh(geometry, material);
-        body.position.x = entityObj.x/10;
+        body.position.x = entityObj.x / 10;
         body.position.y = entityObj.level * 5;
-        body.position.z = entityObj.y/10;
+        body.position.z = entityObj.y / 10;
         return body;
     }
 
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
     var renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    var controls = new THREE.OrbitControls( camera, renderer.domElement );
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.update();
 
-    document.body.appendChild( renderer.domElement );
-    for (obj of example)
-    {
-        scene.add( create3DObject(obj));
-    }
+    document.body.appendChild(renderer.domElement);
+    exampleElements.forEach(o => {
+        scene.add(create3DObject(o));
+    });
 
     camera.position.z = 50;
 
 
     var animate = function () {
-        requestAnimationFrame( animate );
+        requestAnimationFrame(animate);
 
         /*if (camera.position.x > 4) {
             camera.position.x = 0;
@@ -81,7 +104,7 @@ const example = [{"name":"BODY","x":0,"y":0,"level":0,"width":606,"height":80},
         camera.position.y += 0.01;*/
         controls.update();
 
-        renderer.render( scene, camera );
+        renderer.render(scene, camera);
     };
 
     animate();

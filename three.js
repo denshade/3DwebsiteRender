@@ -9232,7 +9232,7 @@
 		 * Sets an offset in a larger frustum. This is useful for multi-window or
 		 * multi-monitor/multi-machine setups.
 		 *
-		 * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
+		 * For exampleElements, if you have 3x2 monitors and each monitor is 1920x1080 and
 		 * the monitors are in grid like this
 		 *
 		 *	 +---+---+---+
@@ -10458,7 +10458,7 @@
 					groundColor: {}
 				}
 			},
-			// TODO (abelnation): RectAreaLight BRDF data needs to be moved from example to main src
+			// TODO (abelnation): RectAreaLight BRDF data needs to be moved from exampleElements to main src
 			rectAreaLights: {
 				value: [],
 				properties: {
@@ -13194,7 +13194,7 @@
 				return 1024;
 			} else {
 				// default for when object is not specified
-				// ( for example when prebuilding shader to be used with multiple objects )
+				// ( for exampleElements when prebuilding shader to be used with multiple objects )
 				//
 				//	- leave some extra space for other uniforms
 				//	- limit here is ANGLE's 254 max uniform vectors
@@ -34237,7 +34237,7 @@
 	/**
 	 *	- shows frustum, line of sight and up of the camera
 	 *	- suitable for fast updates
-	 * 	- based on frustum visualization in lightgl.js shadowmap example
+	 * 	- based on frustum visualization in lightgl.js shadowmap exampleElements
 	 *		http://evanw.github.com/lightgl.js/tests/shadowmap.html
 	 */
 
