@@ -15,7 +15,21 @@ function createCharacterTexture(text) {
     var dynamictexture = new THREEx.DynamicTexture(512, 512);
     dynamictexture.context.font = "bolder 90px verdana";
     dynamictexture.texture.needsUpdate = true;
-    dynamictexture.clear('#ffa500').drawText(text, undefined, 256, 'black');
+    var bgcolor = '#ffa500';
+    switch(text)
+    {
+        case 'DIV':
+            bgcolor = 'green'; break;
+        case 'BODY':
+            bgcolor = 'teal'; break;
+        case 'SPAN':
+            bgcolor = 'yellow'; break;
+        case 'A':
+            bgcolor = 'blue'; break;
+        default:
+            bgcolor = '#ffa500';
+    }
+    dynamictexture.clear(bgcolor).drawText(text, undefined, 256, 'black');
     var material = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         map: dynamictexture.texture,
