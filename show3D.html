@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>My first three.js app</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<script src="three.js"></script>
+<script src="OrbitControls.min.js"></script>
+<script src="threex.dynamictexture.js"></script>
+
+
+<script>
+    function createCharacterTexture( text ) {
+        return new THREE.MeshNormalMaterial();
+        var dynamictexture = new THREEx.DynamicTexture(512, 512);
+        dynamictexture.context.font = "bolder 90px verdana";
+        dynamictexture.texture.needsUpdate = true;
+        dynamictexture.clear('#d35400').drawText(text, undefined, 256, 'green');
+        var material = new THREE.MeshBasicMaterial({color: 0xffffff, map: dynamictexture.texture, opacity:1, transparent: true});
+        return material ;
+    }
+
+
+    const example = [{"name":"BODY","x":8,"y":21.4375,"level":0,"width":1264,"height":1264},{"name":"H1","x":8,"y":21.4375,"level":1,"width":1264,"height":36.66666793823242}];
+    const create3DObject = (entityObj) => {
+        var geometry = new THREE.BoxGeometry(entityObj.width/10,0.5,entityObj.height/10);
+        var material = createCharacterTexture(entityObj.name);
+
+        var body = new THREE.Mesh(geometry, material);
+        body.position.x = entityObj.x/10;
+        body.position.y = entityObj.level;
+        body.position.z = entityObj.y/10;
+        return body;
+    }
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+    for (obj of example)
+    {
+        scene.add( create3DObject(obj));
+    }
+
+    camera.position.z = 70;
+
+    var animate = function () {
+        requestAnimationFrame( animate );
+
+        if (camera.position.x > 4) {
+            camera.position.x = 0;
+        }
+        if (camera.position.y > 4) {
+            camera.position.y = 0;
+        }
+        camera.position.x += 0.01;
+        camera.position.y += 0.01;
+
+
+        renderer.render( scene, camera );
+    };
+
+    animate();
+
+</script>
+
+
+</body>
+</html>

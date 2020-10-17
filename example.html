@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<H1>Hello</H1>
+<script>
+    const printElementDetails = (elementName, clientRect, level) =>
+    {
+        if (clientRect.length > 0)
+        {
+            clientRect = clientRect.item(0);
+            elementName + "," + clientRect.x + "," + clientRect.y + "," + level + "," + clientRect.width + ", " + clientRect.height
+            const summary = {
+                name : elementName,
+                x : clientRect.x,
+                y : clientRect.y,
+                level : level,
+                width : clientRect.width,
+                height : clientRect.height,
+            };
+            document.write(JSON.stringify(summary) + ",");
+        }
+    }
+    const scrapeElementChildren = (element, level) => {
+        for (var child of element.children) {
+            printElementDetails(child.tagName, child.getClientRects(), level);
+            scrapeElementChildren(child, level + 1);
+        }
+    }
+    const scrapeScreen = () => {
+        var bodies = document.getElementsByTagName("body");
+        printElementDetails(bodies.item(0).tagName, bodies.item(0).getClientRects(), 0);
+        scrapeElementChildren(bodies.item(0), 1);
+    }
+    scrapeScreen();
+</script>
+</body>
+</html>
