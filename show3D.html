@@ -23,7 +23,7 @@
         var dynamictexture = new THREEx.DynamicTexture(512, 512);
         dynamictexture.context.font = "bolder 90px verdana";
         dynamictexture.texture.needsUpdate = true;
-        dynamictexture.clear('#d33333').drawText(text, undefined, 256, 'green');
+        dynamictexture.clear('#ffa500').drawText(text, undefined, 256, 'black');
         var material = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             map: dynamictexture.texture,
